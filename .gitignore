@@ -3,6 +3,11 @@
 /.pnp
 .pnp.js
 
+# local tools (not for deployment)
+git-portable/
+git-push.ps1
+push-to-github.js
+
 # testing
 /coverage
 
