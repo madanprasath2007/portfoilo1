@@ -1,0 +1,307 @@
+.wrapper {
+  background: linear-gradient(180deg, #060e14 0%, #080c10 100%);
+}
+
+/* ── Summary filter bar ── */
+.summaryBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.summaryChip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.summaryChip:hover,
+.summaryChip.active {
+  border-color: var(--c);
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 10%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--c) 20%, transparent);
+}
+.chipIcon { font-size: 1rem; }
+.chipLabel { font-weight: 600; }
+.chipCount {
+  background: color-mix(in srgb, var(--c) 20%, transparent);
+  color: var(--c);
+  font-size: 0.7rem;
+  padding: 1px 7px;
+  border-radius: 99px;
+}
+
+/* ── Board / Columns ── */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 1024px) {
+  .board { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .board { grid-template-columns: 1fr; }
+}
+
+/* ── Column ── */
+.column {
+  background: rgba(10, 20, 30, 0.6);
+  border: 1px solid color-mix(in srgb, var(--c) 20%, transparent);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(16px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.column:hover {
+  border-color: color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--c) 8%, transparent);
+}
+
+/* Column header */
+.colHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.colIcon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.colMeta { flex: 1; }
+.colTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--c);
+  font-family: var(--font-mono);
+}
+.colSub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.colStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.streak {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.streakFire { font-size: 0.85rem; }
+.streakNum {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c);
+  line-height: 1;
+}
+.streakLabel {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* Progress */
+.progressWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.progressTrack {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progressFill {
+  height: 100%;
+  width: var(--pct);
+  background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 60%, #00d4ff));
+  border-radius: 99px;
+  transition: width 1s ease;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--c) 60%, transparent);
+}
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* Task cards */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.taskCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  cursor: default;
+}
+.taskCard:hover {
+  transform: translateX(3px);
+}
+
+.done {
+  background: color-mix(in srgb, var(--c) 5%, transparent);
+  border-color: color-mix(in srgb, var(--c) 15%, transparent);
+}
+.todo {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.06);
+}
+.done:hover { border-color: color-mix(in srgb, var(--c) 30%, transparent); }
+.todo:hover { border-color: rgba(255,255,255,0.12); }
+
+.taskCheck { flex-shrink: 0; margin-top: 1px; }
+
+.taskLabel {
+  flex: 1;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.taskDoneText {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--c) 50%, transparent);
+}
+
+.taskRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.points {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Column footer */
+.colFooter {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.totalBadge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--c);
+  opacity: 0.7;
+}
+
+/* ── Activity Heatmap ── */
+.heatmapWrap {
+  background: rgba(10, 20, 30, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+}
+
+.heatmapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heatmapTitle {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.heatmapIcon { font-size: 1rem; }
+
+.heatmapLegend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.legendLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+.legendCell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  cursor: default;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 4px;
+}
+@media (max-width: 600px) {
+  .heatmap { grid-template-columns: repeat(10, 1fr); }
+}
+
+.heatCell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  transition: transform 0.15s, filter 0.15s;
+  cursor: pointer;
+}
+.heatCell:hover {
+  transform: scale(1.3);
+  filter: brightness(1.4);
+  z-index: 1;
+  position: relative;
+}
