@@ -1,0 +1,431 @@
+/* ── Dashboard wrapper ─────────────────────────────── */
+.dashWrap {
+  background: linear-gradient(135deg, #080d14 0%, #0a1520 50%, #06100a 100%);
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle corner glow */
+.dashWrap::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(0,255,136,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.dashWrap::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.dashHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 0;
+  border-bottom: 1px solid rgba(0,255,136,0.08);
+  padding-bottom: 16px;
+}
+.dashTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.dashTitleIcon { font-size: 1.1rem; }
+.dashSub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ── Stat Counters ─────────────────────────────────── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-bottom: 1px solid rgba(0,255,136,0.08);
+}
+@media (max-width: 640px) {
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+}
+
+.statBox {
+  position: relative;
+  padding: 20px;
+  border-right: 1px solid rgba(0,255,136,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.statBox:last-child { border-right: none; }
+.statBox:hover {
+  background: color-mix(in srgb, var(--c) 5%, transparent);
+}
+
+.statGlow {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, var(--c) 0%, transparent 70%);
+  opacity: 0.15;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.statBox:hover .statGlow { opacity: 0.3; }
+
+.statIcon { font-size: 1rem; margin-bottom: 4px; }
+
+.statValue {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Bottom accent line */
+.statBar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--c);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.statBox:hover .statBar { opacity: 0.6; }
+
+/* ── Main panel ────────────────────────────────────── */
+.mainPanel {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  border-bottom: 1px solid rgba(0,255,136,0.08);
+}
+@media (max-width: 900px) {
+  .mainPanel { grid-template-columns: 1fr; }
+}
+
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(0,255,136,0.08);
+}
+
+/* ── Radar chart ───────────────────────────────────── */
+.radarWrap {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.radarTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+}
+.radarSvg {
+  width: 100%;
+  max-width: 220px;
+}
+.radarPoly {
+  animation: radarIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  transform-origin: 140px 140px;
+}
+@keyframes radarIn {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.radarDot {
+  animation: dotPop 0.4s both;
+  animation-delay: 1s;
+}
+@keyframes dotPop {
+  from { r: 0; }
+  to   { r: 4; }
+}
+.radarLabel {
+  animation: labelIn 0.5s both;
+  animation-delay: 1.1s;
+}
+@keyframes labelIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.radarLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+.radarLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.radarLegendDot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.radarLegendLabel {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+.radarLegendVal {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ── Streak leaderboard ────────────────────────────── */
+.streakBoard {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(0,255,136,0.08);
+}
+.streakBoardTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+.streakList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.streakRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.streakRank {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 26px;
+  flex-shrink: 0;
+}
+.streakIcon { font-size: 0.85rem; flex-shrink: 0; }
+.streakName {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  width: 70px;
+  flex-shrink: 0;
+}
+.streakBarTrack {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.streakBarFill {
+  height: 100%;
+  width: var(--w);
+  background: var(--c);
+  border-radius: 99px;
+  box-shadow: 0 0 6px var(--c);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fillIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: 0.3s;
+}
+@keyframes fillIn {
+  from { width: 0; }
+  to   { width: var(--w); }
+}
+.streakDays {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Calendar heatmap ──────────────────────────────── */
+.calendarWrap {
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.monthRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.dayLabelSpacer {
+  width: 28px;
+  flex-shrink: 0;
+}
+.monthLabels {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  flex: 1;
+  gap: 3px;
+}
+.monthLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  grid-column: span 3;
+}
+
+.gridOuter {
+  display: flex;
+  gap: 4px;
+}
+.dayLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 24px;
+  flex-shrink: 0;
+}
+.dayLabel {
+  height: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  line-height: 12px;
+}
+
+.cellGrid {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+.weekCol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cell {
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 10px;
+  border-radius: 3px;
+  background: var(--bg);
+  box-shadow: var(--glow, none);
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+}
+.cellVisible {
+  animation: cellReveal 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes cellReveal {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.cell:hover {
+  transform: scale(1.35);
+  filter: brightness(1.6);
+  z-index: 1;
+  position: relative;
+}
+
+/* Legend */
+.calLegend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+.calLegendLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+.calLegendCell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--bg);
+}
+
+/* Tooltip */
+.tooltip {
+  position: fixed;
+  transform: translateX(-50%);
+  background: #0a1520;
+  border: 1px solid rgba(0,255,136,0.3);
+  border-radius: 8px;
+  padding: 7px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: none;
+  z-index: 200;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0,255,136,0.15);
+  white-space: nowrap;
+}
+.tooltipLevel {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.tooltipDays {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* ── Terminal footer ─────────────────────────────────── */
+.terminalFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(0,255,136,0.08);
+  flex-wrap: wrap;
+}
+.termCmd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.termOut {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
