@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/*
+  Token system
+  ------------
+  bg-void      #0a0908  near-black warm charcoal, the base of every frame
+  bg-charcoal  #16130f  panel / gradient midpoint
+  ember        #ff6a2e  hot practical-light accent (buttons, hint dot)
+  amber        #ffb066  softer warm glow (used in text shadow, borders)
+  monitor-blue #5b8cff  cool complementary glow, used sparingly
+  fog          #f5f0e8  primary text on dark
+  fog-dim      rgba(245,240,232,0.62)
+*/
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
+  background: #0a0908;
+  overflow: hidden;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* ---------- video layers ---------- */
+
+.bgVideoWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: scale(1.15);
+}
+
+.bgVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(38px) saturate(1.15) brightness(0.55);
+  opacity: 0.75;
+  transform: scale(1.05);
+}
+
+.videoWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: brightness(0.92) contrast(1.04) saturate(1.05);
+}
+
+.particleLayer {
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* ---------- readability gradients ---------- */
+
+.gradientBottom {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    to top,
+    rgba(8, 7, 6, 0.96) 0%,
+    rgba(8, 7, 6, 0.72) 18%,
+    rgba(8, 7, 6, 0.28) 42%,
+    rgba(8, 7, 6, 0) 62%
+  );
+  pointer-events: none;
+}
+
+.gradientTop {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 5, 4, 0.75) 0%,
+    rgba(6, 5, 4, 0) 30%
+  );
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  box-shadow: inset 0 0 18vw rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+/* ---------- content ---------- */
+
+.content {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 clamp(24px, 6vw, 96px) clamp(96px, 14vh, 168px);
+  max-width: 1100px;
+}
+
+.eyebrow {
+  opacity: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: #ffb066;
+  margin-bottom: clamp(14px, 2vh, 22px);
+}
+
+.name {
+  margin: 0 0 clamp(20px, 3vh, 32px);
+  display: flex;
+  flex-direction: column;
+  line-height: 0.92;
+}
+
+.nameLine {
+  opacity: 0;
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(58px, 12vw, 168px);
+  color: #f5f0e8;
+  text-shadow: 0 2px 40px rgba(255, 138, 61, 0.18);
+  letter-spacing: -0.01em;
+}
+
+.nameLine:last-child {
+  font-style: italic;
+  font-weight: 300;
+  color: #ffdcb8;
+}
+
+.subtitle {
+  opacity: 0;
+  max-width: 42ch;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 1.4vw, 18px);
+  line-height: 1.65;
+  color: rgba(245, 240, 232, 0.62);
+}
+
+/* ---------- glass controls ---------- */
+
+.controls {
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  right: clamp(20px, 4vw, 56px);
+  bottom: clamp(28px, 6vh, 56px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.glassButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 240, 232, 0.16);
+  background: rgba(245, 240, 232, 0.06);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  color: #f5f0e8;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.glassButton:hover {
+  background: rgba(255, 138, 61, 0.16);
+  border-color: rgba(255, 178, 102, 0.4);
+  transform: translateY(-2px);
+}
+
+.glassButton:active {
+  transform: translateY(0);
+}
+
+.glassButton:focus-visible {
+  outline: 2px solid #ffb066;
+  outline-offset: 3px;
+}
+
+.soundHint {
+  position: absolute;
+  right: calc(100% + 14px);
+  bottom: 50%;
+  transform: translateY(50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  padding: 9px 16px 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  background: rgba(16, 13, 10, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #f5f0e8;
+  cursor: pointer;
+  animation: soundHintFloat 2.4s ease-in-out infinite;
+}
+
+.soundHintDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #ff6a2e;
+  box-shadow: 0 0 0 0 rgba(255, 106, 46, 0.55);
+  animation: soundHintPulse 1.8s ease-out infinite;
+}
+
+@keyframes soundHintPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 106, 46, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 106, 46, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 106, 46, 0);
+  }
+}
+
+@keyframes soundHintFloat {
+  0%,
+  100% {
+    transform: translateY(50%);
+  }
+  50% {
+    transform: translateY(calc(50% - 4px));
+  }
+}
+
+/* ---------- scroll indicator (waveform pulse — nods to the talking-head/voice subject) ---------- */
+
+.scrollIndicator {
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: clamp(26px, 5vh, 44px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(245, 240, 232, 0.7);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.scrollIndicator:hover {
+  color: #ffdcb8;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scrollIndicator:focus-visible {
+  outline: 2px solid #ffb066;
+  outline-offset: 4px;
+}
+
+.scrollWave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+
+.scrollWave span {
+  width: 2.5px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: waveform 1.6s ease-in-out infinite;
+}
+
+.scrollWave span:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+.scrollWave span:nth-child(2) {
+  height: 14px;
+  animation-delay: 0.15s;
+}
+.scrollWave span:nth-child(3) {
+  height: 22px;
+  animation-delay: 0.3s;
+}
+.scrollWave span:nth-child(4) {
+  height: 12px;
+  animation-delay: 0.45s;
+}
+.scrollWave span:nth-child(5) {
+  height: 8px;
+  animation-delay: 0.6s;
+}
+
+@keyframes waveform {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.scrollLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .soundHint,
+  .soundHintDot,
+  .scrollWave span {
+    animation: none !important;
+  }
+  .glassButton,
+  .scrollIndicator {
+    transition: none !important;
+  }
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 720px) {
+  .content {
+    padding: 0 20px clamp(120px, 22vh, 180px);
+  }
+
+  .video {
+    object-position: 62% 22%;
+  }
+
+  .controls {
+    right: 16px;
+    bottom: 22px;
+  }
+
+  .soundHint {
+    right: auto;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+  }
+
+  @keyframes soundHintFloat {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-4px);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .nameLine {
+    font-size: clamp(46px, 16vw, 64px);
+  }
+}
