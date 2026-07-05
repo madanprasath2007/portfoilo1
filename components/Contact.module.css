@@ -1,0 +1,196 @@
+.wrapper {
+  background: linear-gradient(180deg, #080c10 0%, #040810 100%);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .inner { grid-template-columns: 1fr; }
+}
+
+/* ── CTA card ── */
+.cta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ctaGlow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0,255,136,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaIcon {
+  font-size: 2.5rem;
+}
+
+.ctaTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ctaText {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* Email row */
+.emailRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+
+.emailText {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--green);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copyBtn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.copyBtn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.copiedMsg {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--green);
+  animation: fadeInOut 2s forwards;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Socials */
+.socials {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+}
+.socialLink:hover {
+  color: var(--color);
+  border-color: var(--color);
+  background: color-mix(in srgb, var(--color) 8%, transparent);
+  transform: translateY(-2px);
+}
+
+/* ── Facts ── */
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.fact:hover {
+  border-color: rgba(0, 255, 136, 0.4);
+  transform: translateX(4px);
+}
+
+.factIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.factLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.factValue {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footerMono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--green);
+  opacity: 0.7;
+}
+
+.footerCopy {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
